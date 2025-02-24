@@ -1,0 +1,11 @@
+0000000000000000000000000000000000000000 4497edc4bbc5fb1aaab2cda90f07acb454a00280 Kirill Glukhov <valeralunin34@gmail.com> 1740233658 +0700	commit (initial): first commit
+4497edc4bbc5fb1aaab2cda90f07acb454a00280 0000000000000000000000000000000000000000 Kirill Glukhov <valeralunin34@gmail.com> 1740233665 +0700	Branch: renamed refs/heads/master to refs/heads/master
+4497edc4bbc5fb1aaab2cda90f07acb454a00280 4497edc4bbc5fb1aaab2cda90f07acb454a00280 Kirill Glukhov <valeralunin34@gmail.com> 1740233665 +0700	Branch: renamed refs/heads/master to refs/heads/master
+0000000000000000000000000000000000000000 4497edc4bbc5fb1aaab2cda90f07acb454a00280 Kirill Glukhov <valeralunin34@gmail.com> 1740233837 +0700	checkout: moving from rn to master
+0000000000000000000000000000000000000000 0e9e1f18bfaed6d0d26824c2bc044e24ea125b66 Kirill Glukhov <valeralunin34@gmail.com> 1740233885 +0700	commit (initial): Initial commit for React Native
+0e9e1f18bfaed6d0d26824c2bc044e24ea125b66 4497edc4bbc5fb1aaab2cda90f07acb454a00280 Kirill Glukhov <valeralunin34@gmail.com> 1740233954 +0700	checkout: moving from rn to master
+0000000000000000000000000000000000000000 a2a5eef79884e49fc0a3317f37835686379cfd83 Kirill Glukhov <valeralunin34@gmail.com> 1740234044 +0700	commit (initial): Initial commit on backend branch
+a2a5eef79884e49fc0a3317f37835686379cfd83 4497edc4bbc5fb1aaab2cda90f07acb454a00280 Kirill Glukhov <valeralunin34@gmail.com> 1740234064 +0700	checkout: moving from back to master
+0000000000000000000000000000000000000000 e0f87d316eec15477a276c31666b12421192e54a Kirill Glukhov <valeralunin34@gmail.com> 1740234092 +0700	commit (initial): Initial commit on mobile branch
+e0f87d316eec15477a276c31666b12421192e54a e0f87d316eec15477a276c31666b12421192e54a Kirill Glukhov <valeralunin34@gmail.com> 1740407941 +0700	reset: moving to HEAD
+e0f87d316eec15477a276c31666b12421192e54a 0e9e1f18bfaed6d0d26824c2bc044e24ea125b66 Kirill Glukhov <valeralunin34@gmail.com> 1740407993 +0700	checkout: moving from mob to rn
