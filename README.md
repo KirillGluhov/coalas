@@ -1,3 +1,13 @@
+# Как собрать?
+docker build -t <название докер-контейнера> .
+
+(Про точку на конце не забудь, её можно заменить на путь до докерфайла, если запускаешь его не в папке с проектом)
+
+docker run -p 5000:5000 <ео же название>
+
+(Он запуститься на http://localhost:5000. Там будет приветственное окно)
+
+
 # Welcome to your Expo app 👋
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
