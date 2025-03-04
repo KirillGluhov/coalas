@@ -16,14 +16,15 @@ import org.springframework.http.HttpMethod;
 public class GatewayConfig
 {
     @Autowired
-    private Environment env;
-    @Autowired
     JWTAuthorizationFilter jwtAuthorizationFilter;
+
+    @Autowired
+    DomainProvider domainProvider;
 
     @Bean
     public RouteLocator userAuthRouteLocator(RouteLocatorBuilder builder)
     {
-        String url = new DomainProvider(env).getUserDomain();
+        String url = domainProvider.getUserDomain();
         String partOfId = "user-service-auth-";
         String partOfUrl = "/auth";
         GatewayFilter employeeFilterRole = jwtAuthorizationFilter.apply(config -> {config.addRole(Role.EMPLOYEE);});
@@ -78,7 +79,7 @@ public class GatewayConfig
     @Bean
     public RouteLocator userUsersRouteLocator(RouteLocatorBuilder builder)
     {
-        String url = new DomainProvider(env).getUserDomain();
+        String url = domainProvider.getUserDomain();
         String partOfId = "user-service-users-";
         String partOfUrl = "/users";
 
@@ -186,7 +187,7 @@ public class GatewayConfig
     @Bean
     public RouteLocator loanTariffsRouteLocator(RouteLocatorBuilder builder)
     {
-        String url = new DomainProvider(env).getLoanDomain();
+        String url = domainProvider.getLoanDomain();
         String partOfId = "loan-service-tariffs-";
         String partOfUrl = "/tariffs";
 
@@ -224,7 +225,7 @@ public class GatewayConfig
     @Bean
     public RouteLocator coreAccountsRouteLocator(RouteLocatorBuilder builder)
     {
-        String url = new DomainProvider(env).getCoreDomain();
+        String url = domainProvider.getCoreDomain();
         String partOfId = "core-accounts-";
         String partOfUrl = "/accounts";
 
@@ -267,7 +268,7 @@ public class GatewayConfig
     @Bean
     public RouteLocator loanLoansRouteLocator(RouteLocatorBuilder builder)
     {
-        String url = new DomainProvider(env).getLoanDomain();
+        String url = domainProvider.getLoanDomain();
         String partOfId = "loan-service-loans-";
         String partOfUrl = "/loans";
 
@@ -282,6 +283,13 @@ public class GatewayConfig
                         .path(partOfUrl + "/{loanId}/accounts/{accountId}/autodebt")
                         .and()
                         .method(HttpMethod.PUT)
+                        .filters(f -> f
+                                .filter(clientFilterRole))
+                        .uri(url))
+                .route(partOfId + "id-account-delete", r -> r
+                        .path(partOfUrl + "/{loanId}/accounts/{accountId}/autodebt")
+                        .and()
+                        .method(HttpMethod.DELETE)
                         .filters(f -> f
                                 .filter(clientFilterRole))
                         .uri(url))

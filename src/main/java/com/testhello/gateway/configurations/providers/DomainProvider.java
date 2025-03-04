@@ -3,11 +3,15 @@ package com.testhello.gateway.configurations.providers;
 import com.testhello.gateway.configurations.filters.JWTAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DomainProvider {
 
-    private Environment env;
+    private final Environment env;
 
+
+    @Autowired
     public DomainProvider(Environment environment)
     {
         this.env = environment;
@@ -41,5 +45,3 @@ public class DomainProvider {
     }
 
 }
-
-// расширить список
