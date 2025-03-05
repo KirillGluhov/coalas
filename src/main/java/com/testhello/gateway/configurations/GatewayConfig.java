@@ -266,11 +266,63 @@ public class GatewayConfig
     }
 
     @Bean
+    public RouteLocator coreAccountsWebSocketRouteLocator(RouteLocatorBuilder builder)
+    {
+        String url = domainProvider.getCoreDomain();
+        String partOfId = "core-accounts-";
+        String partOfUrl = "/accounts";
+
+        GatewayFilter employeeFilterRole = jwtAuthorizationFilter.apply(config -> {config.addRole(Role.EMPLOYEE);});
+        GatewayFilter clientFilterRole = jwtAuthorizationFilter.apply(config -> {config.addRole(Role.CLIENT);});
+
+        return builder
+                .routes()
+                .route(partOfId + "clients", r -> r
+                        .path(partOfUrl + "/clients")
+                        .and()
+                        .method(HttpMethod.GET)
+                        .filters(f -> f
+                                .filter(employeeFilterRole))
+                        .uri(url))
+                .route(partOfId + "clients-account", r -> r
+                        .path(partOfUrl + "/clients/{accountId}")
+                        .and()
+                        .method(HttpMethod.GET)
+                        .filters(f -> f
+                                .filter(employeeFilterRole))
+                        .uri(url))
+                .route(partOfId + "clients-user", r -> r
+                        .path(partOfUrl + "/clients/{userId}")
+                        .and()
+                        .method(HttpMethod.GET)
+                        .filters(f -> f
+                                .filter(employeeFilterRole))
+                        .uri(url))
+                .route(partOfId + "my", r -> r
+                        .path(partOfUrl + "/my")
+                        .and()
+                        .method(HttpMethod.GET)
+                        .filters(f -> f
+                                .filter(clientFilterRole))
+                        .uri(url))
+                .route(partOfId + "my-account", r -> r
+                        .path(partOfUrl + "/my/{accountId}")
+                        .and()
+                        .method(HttpMethod.GET)
+                        .filters(f -> f
+                                .filter(clientFilterRole))
+                        .uri(url))
+                .build();
+        // Нет проверки на то, что счёт принадлежит владельцу
+    }
+
+    @Bean
     public RouteLocator loanLoansRouteLocator(RouteLocatorBuilder builder)
     {
         String url = domainProvider.getLoanDomain();
         String partOfId = "loan-service-loans-";
         String partOfUrl = "/loans";
+
 
         GatewayFilter clientFilterRole = jwtAuthorizationFilter.apply(config -> {config.addRole(Role.CLIENT);});
 
@@ -308,6 +360,106 @@ public class GatewayConfig
 
         // Нет проверки на существование кредита для удаления тарифа
     }
-}
 
-//Переименовать, сделать для всех эндпоинтов, добавить фильтрацию по токену, добавить соединение с фронтом через вебсокеты
+    @Bean
+    public RouteLocator loanLoansWebSocketRouteLocator(RouteLocatorBuilder builder)
+    {
+        String url = domainProvider.getLoanDomain();
+        String partOfId = "loan-service-w-loans-";
+        String partOfUrl = "/loans";
+
+        GatewayFilter employeeFilterRole = jwtAuthorizationFilter.apply(config -> {config.addRole(Role.EMPLOYEE);});
+        GatewayFilter clientFilterRole = jwtAuthorizationFilter.apply(config -> {config.addRole(Role.CLIENT);});
+
+        return builder
+                .routes()
+                .route(partOfId + "my", r -> r
+                        .path(partOfUrl + "/my")
+                        .and()
+                        .method(HttpMethod.GET)
+                        .filters(f -> f
+                                .filter(clientFilterRole))
+                        .uri(url))
+                .route(partOfId + "my-loan", r -> r
+                        .path(partOfUrl + "/my/{loanId}")
+                        .and()
+                        .method(HttpMethod.GET)
+                        .filters(f -> f
+                                .filter(clientFilterRole))
+                        .uri(url))
+                .route(partOfId + "clients", r -> r
+                        .path(partOfUrl + "/clients")
+                        .and()
+                        .method(HttpMethod.GET)
+                        .filters(f -> f
+                                .filter(employeeFilterRole))
+                        .uri(url))
+                .route(partOfId + "clients-loan", r -> r
+                        .path(partOfUrl + "/clients/{loanId}")
+                        .and()
+                        .method(HttpMethod.GET)
+                        .filters(f -> f
+                                .filter(employeeFilterRole))
+                        .uri(url))
+                .route(partOfId + "clients-user", r -> r
+                        .path(partOfUrl + "/clients/{userId}")
+                        .and()
+                        .method(HttpMethod.GET)
+                        .filters(f -> f
+                                .filter(employeeFilterRole))
+                        .uri(url))
+                .route(partOfId + "clients-user-loan", r -> r
+                        .path(partOfUrl + "/clients/{userId}/{loanId}")
+                        .and()
+                        .method(HttpMethod.GET)
+                        .filters(f -> f
+                                .filter(employeeFilterRole))
+                        .uri(url))
+                .build();
+
+        // Нет проверки на существование кредита для удаления тарифа
+    }
+
+    @Bean
+    public RouteLocator coreOperationsWebSocketRouteLocator(RouteLocatorBuilder builder)
+    {
+        String url = domainProvider.getCoreDomain();
+        String partOfId = "core-service-w-operations-";
+        String partOfUrl = "/operations";
+
+        GatewayFilter employeeFilterRole = jwtAuthorizationFilter.apply(config -> {config.addRole(Role.EMPLOYEE);});
+        GatewayFilter clientFilterRole = jwtAuthorizationFilter.apply(config -> {config.addRole(Role.CLIENT);});
+
+        return builder
+                .routes()
+                .route(partOfId + "my-account", r -> r
+                        .path(partOfUrl + "/my/accounts/{accountId}")
+                        .and()
+                        .method(HttpMethod.GET)
+                        .filters(f -> f
+                                .filter(clientFilterRole))
+                        .uri(url))
+                .route(partOfId + "my-loan", r -> r
+                        .path(partOfUrl + "/my/loans/{loanId}")
+                        .and()
+                        .method(HttpMethod.GET)
+                        .filters(f -> f
+                                .filter(clientFilterRole))
+                        .uri(url))
+                .route(partOfId + "accounts-id", r -> r
+                        .path(partOfUrl + "/accounts/{accountId}")
+                        .and()
+                        .method(HttpMethod.GET)
+                        .filters(f -> f
+                                .filter(employeeFilterRole))
+                        .uri(url))
+                .route(partOfId + "loans-id", r -> r
+                        .path(partOfUrl + "/loans/{loanId}")
+                        .and()
+                        .method(HttpMethod.GET)
+                        .filters(f -> f
+                                .filter(employeeFilterRole))
+                        .uri(url))
+                .build();
+    }
+}
