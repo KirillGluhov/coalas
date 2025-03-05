@@ -273,9 +273,6 @@ public class GatewayConfig
         String partOfUrl = "/loans";
 
         GatewayFilter clientFilterRole = jwtAuthorizationFilter.apply(config -> {config.addRole(Role.CLIENT);});
-        GatewayFilter employeeFilterRole = jwtAuthorizationFilter.apply(config -> {config.addRole(Role.EMPLOYEE);});
-        GatewayFilter withoutFilterRole = jwtAuthorizationFilter.apply(config -> {});
-        GatewayFilter allFilterRole = jwtAuthorizationFilter.apply(config -> {config.addRole(Role.EMPLOYEE).addRole(Role.CLIENT);});
 
         return builder
                 .routes()

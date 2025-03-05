@@ -19,29 +19,27 @@ public class DomainProvider {
 
     public String getUserDomain()
     {
-        return getDomain(getPort("coalas.users"));
+        return getHTTPDomain(getPort("coalas.users"));
     }
 
     public String getCoreDomain()
     {
-        return getDomain(getPort("coalas.core"));
+        return getHTTPDomain(getPort("coalas.core"));
     }
 
     public String getLoanDomain()
     {
-        return getDomain(getPort("coalas.loans"));
+        return getHTTPDomain(getPort("coalas.loans"));
     }
-
 
     private String getPort(String envValue)
     {
         return env.getProperty(envValue);
     }
 
-    private String getDomain(String port)
+    private String getHTTPDomain(String port)
     {
         String host = env.getProperty("server.address");
         return String.format("http://%s:%s", host, port);
     }
-
 }
