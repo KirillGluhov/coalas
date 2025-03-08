@@ -82,9 +82,12 @@ public class JWTAuthorizationFilter extends AbstractGatewayFilterFactory<JWTAuth
             return true;
         }
 
+        System.out.println(config.getRoles());
+        System.out.println(parsedToken);
+
         for (Role role : config.getRoles())
         {
-            if (parsedToken.containsKey("role") && parsedToken.containsValue(role.toString()))
+            if ((parsedToken.containsKey("role") || parsedToken.containsKey("Role")) && parsedToken.containsValue(role.toString()))
             {
                 return true;
             }
