@@ -336,7 +336,7 @@ public class GatewayConfig
                                 .filter(clientFilterRole))
                         .uri(url))
                 .route(partOfId + "id-account-delete", r -> r
-                        .path(partOfUrl + "/{loanId}/accounts/{accountId}/autodebt")
+                        .path(partOfUrl + "/{loanId}/autodebt")
                         .and()
                         .method(HttpMethod.DELETE)
                         .filters(f -> f

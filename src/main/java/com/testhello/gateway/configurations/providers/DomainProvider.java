@@ -39,7 +39,7 @@ public class DomainProvider {
 
     private String getHTTPDomain(String port)
     {
-        String host = env.getProperty("server.address");
+        String host = env.getProperty("coalas.address.server");
         return String.format("https://%s/%s", host, port);
     }
 }
