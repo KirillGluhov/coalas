@@ -20,6 +20,6 @@ public class DomainProvider {
         String host = env.getProperty("server.address");
         System.out.println(String.format("http://%s:%s", host, port) + "/");
 
-        return String.format("http://%s:%s", host, port);
+        return String.format("https://%s/%s", host, port);
     }
 }
