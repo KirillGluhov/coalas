@@ -40,6 +40,6 @@ public class DomainProvider {
     private String getHTTPDomain(String port)
     {
         String host = env.getProperty("server.address");
-        return String.format("http://%s:%s", host, port);
+        return String.format("https://%s/%s", host, port);
     }
 }
