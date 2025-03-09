@@ -13,7 +13,9 @@ const styles = StyleSheet.create({
         backgroundColor: colors.dark.black,
         display: "flex",
         alignSelf: "flex-start",
-        borderRadius: 16
+        borderRadius: 16,
+        position: "absolute",
+        left: 16
     },
     text: {
         color: "#FFFFFF",

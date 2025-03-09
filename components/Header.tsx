@@ -31,6 +31,6 @@ const styles = StyleSheet.create({
     },
     logoText: {
         fontSize: 20,
-        color: "#FFFFFF"
+        color: colors.dark.text
     }
 })

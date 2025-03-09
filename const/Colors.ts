@@ -8,6 +8,8 @@ export const colors = {
         background: '#333646',
         black: '#1B1C1F',
         red: '#EC2B61',
-        accent: '#2B61EC'
+        accent: '#2B61EC',
+        primary: '#FFFFFF33',
+        text: "#FFFFFF"
     }
 }

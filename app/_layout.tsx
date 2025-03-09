@@ -1,6 +1,32 @@
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
+import { createServer } from "miragejs";
 import { useEffect } from "react";
+
+createServer({
+  routes() {
+    this.post("/login", (schema, request) => {
+      let loginCredentials = JSON.parse(request.requestBody)
+
+      if ('password' in loginCredentials && ('phone' in loginCredentials || 'email' in loginCredentials))
+      {
+        return {
+            accessToken: "piuy6478",
+            refreshToken: "adryg132454",
+            userType: "employee"
+        }
+      }
+      else
+      {
+        return {
+          status: "error",
+        }
+      }
+    })
+
+  },
+})
+
 
 SplashScreen.preventAutoHideAsync();
 
@@ -26,9 +52,23 @@ export default function RootLayout() {
     <Stack.Screen 
       name="index" 
       options={{
-        title: 'Registration',
+        title: 'Login',
           headerShown: false,
         }}
+      />
+      <Stack.Screen 
+        name="main" 
+        options={{
+          title: 'Main',
+            headerShown: false,
+          }}
+      />
+      <Stack.Screen 
+        name="registration" 
+        options={{
+          title: 'Registration',
+            headerShown: false,
+          }}
       />
   </Stack>;
 }

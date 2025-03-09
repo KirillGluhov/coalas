@@ -1,18 +1,19 @@
-import { StyleSheet, View } from "react-native"
+import { StyleSheet, TextInput, View } from "react-native"
 import { Title } from "./Title"
-import { ReactNode } from "react"
+import { ReactElement } from "react";
+import { colors } from "@/const/Colors";
 
 interface CardType
 {
     title: string;
-    inner: ReactNode | null | undefined;
+    children: React.ReactNode;
 }
 
-export const Card: React.FC<CardType> = ({title, inner}) => {
+export const Card: React.FC<CardType> = ({title, children}) => {
     return <View style={styles.card}>
         <Title text={title}/>
-        <View style={styles.cardInner}>
-            {inner}
+        <View style={styles.innerCard}>
+            {children}
         </View>
     </View>
 }
@@ -22,9 +23,14 @@ const styles = StyleSheet.create({
         marginTop: 16,
         marginBottom: 16,
         maxWidth: 810,
-        minWidth: 300
+        minWidth: 300,
+        width: "75%",
     },
-    cardInner: {
+    innerCard: {
+        backgroundColor: colors.dark.black,
+        padding: 24,
+        borderRadius: 16,
+        marginTop: 43
     }
 })
 
