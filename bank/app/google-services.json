@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "662573392043",
+    "project_id": "bank-a2238",
+    "storage_bucket": "bank-a2238.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662573392043:android:46aa7e31a6b0d8bb18d7ee",
+        "android_client_info": {
+          "package_name": "com.nastirlex.bank"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDyvtutkAPJxbKPpFUsks7vHNK9p7DjKI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

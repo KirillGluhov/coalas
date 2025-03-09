@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Bank</string>
+
+    <string name="amount_label">Сумма</string>
+    <string name="withdraw_money_label">Введите сумму, которую хотите снять</string>
+    <string name="replenish_money_label">Введите сумму, на которую хотите пополнить счет</string>
+
+    <string name="replenish_button">Внести</string>
+
+    <string name="withdraw_button">Снять</string>
+
+    <string name="account_for_loan_choice">Укажите счет, на который поступят деньги, оставьте поле пустым, если желаете создать новый счет</string>
+
+    <string name="loan_size_label">Размер кредита</string>
+
+    <string name="create_loan_button">Взять кредит</string>
+</resources>
