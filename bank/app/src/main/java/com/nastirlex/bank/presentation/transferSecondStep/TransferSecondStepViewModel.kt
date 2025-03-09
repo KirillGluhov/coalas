@@ -112,7 +112,7 @@ class TransferSecondStepViewModel @Inject constructor(
             TransferParam(
                 "1",
                 Transfer(
-                    amount = currentScreenState.amount.toInt(),
+                    money = currentScreenState.amount.toInt(),
                     accountId = currentScreenState.receiptAccount!!.id
                 )
             )

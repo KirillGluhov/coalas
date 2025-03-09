@@ -1,6 +1,6 @@
 package com.nastirlex.domain.core.model
 
 data class TransferParam(
-    val accountId: String,
+    val loanId: String,
     val transferBody: Transfer,
 )

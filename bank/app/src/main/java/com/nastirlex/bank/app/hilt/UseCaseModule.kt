@@ -20,6 +20,8 @@ import com.nastirlex.domain.core.OpenAccountUseCase
 import com.nastirlex.domain.core.OpenAccountUseCaseImpl
 import com.nastirlex.domain.core.ReplenishAccountUseCase
 import com.nastirlex.domain.core.ReplenishAccountUseCaseImpl
+import com.nastirlex.domain.core.ReplenishLoanUseCase
+import com.nastirlex.domain.core.ReplenishLoanUseCaseImpl
 import com.nastirlex.domain.core.TransferUseCase
 import com.nastirlex.domain.core.TransferUseCaseImpl
 import com.nastirlex.domain.core.WithdrawAccountUseCase
@@ -66,6 +68,9 @@ interface UseCaseModule {
 
     @Binds
     fun getLoanUseCase(getLoanUseCaseImpl: GetLoanUseCaseImpl): GetLoanUseCase
+
+    @Binds
+    fun replenishLoanUseCase(replenishLoanUseCaseImpl: ReplenishLoanUseCaseImpl): ReplenishLoanUseCase
 
     @Binds
     fun getLoanRating(getLoanRatingUseCaseImpl: GetLoanRatingUseCaseImpl): GetLoanRatingUseCase

@@ -1,6 +1,6 @@
 package com.nastirlex.domain.core.model
 
 data class Transfer(
-    val amount: Int,
+    val money: Int,
     val accountId: String,
 )

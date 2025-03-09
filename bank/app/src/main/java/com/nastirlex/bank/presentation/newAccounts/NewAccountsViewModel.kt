@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.nastirlex.bank.presentation.core.StatefulViewModel
 import com.nastirlex.bank.presentation.newAccounts.model.NewAccountsState
 import com.nastirlex.domain.core.CreateLoanUseCase
+import com.nastirlex.domain.core.GetAccountsUseCase
 import com.nastirlex.domain.core.GetLoanRatingUseCase
 import com.nastirlex.domain.core.GetTariffsUseCase
 import com.nastirlex.domain.core.model.CreateLoan
@@ -14,12 +15,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewAccountsViewModel @Inject constructor(
+    private val getAccountsUseCase: GetAccountsUseCase,
     private val getTariffsUseCase: GetTariffsUseCase,
     private val getLoanRatingUseCase: GetLoanRatingUseCase,
     private val createLoanUseCase: CreateLoanUseCase,
 ) : StatefulViewModel<NewAccountsState>() {
 
     init {
+        getAccounts()
         getTariffs()
     }
 
@@ -33,6 +36,14 @@ class NewAccountsViewModel @Inject constructor(
                 copy(
                     rating = it.rating.toString(),
                 )
+            }
+        }
+    }
+
+    private fun getAccounts() = viewModelScope.launch {
+        getAccountsUseCase(Unit).onSuccess { accounts ->
+            updateState {
+                copy(accounts = accounts)
             }
         }
     }
@@ -68,9 +79,6 @@ class NewAccountsViewModel @Inject constructor(
     }
 
     fun createLoan() = viewModelScope.launch {
-        updateState {
-            copy(showCreateLoanBottomSheet = false)
-        }
         createLoanUseCase(
             CreateLoan(
                 tariffId = currentScreenState.selectedTariffId,
@@ -79,6 +87,12 @@ class NewAccountsViewModel @Inject constructor(
                 closeDate = "",
             )
         )
+    }
+
+    fun onBottomSheetChangeVisibility(isVisible: Boolean) {
+        updateState {
+            copy(showCreateLoanBottomSheet = isVisible)
+        }
     }
 
     fun onCreditClick() = viewModelScope.launch {}

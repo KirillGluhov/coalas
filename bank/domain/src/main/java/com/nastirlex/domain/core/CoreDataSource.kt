@@ -16,6 +16,8 @@ interface CoreDataSource {
 
     suspend fun getLoans() : List<ShortLoan>
 
+    suspend fun replenishLoan(loanId: String, transferBody: Transfer)
+
     suspend fun openAccount(openAccount: OpenAccount)
 
     suspend fun closeAccount(accountId: String)
