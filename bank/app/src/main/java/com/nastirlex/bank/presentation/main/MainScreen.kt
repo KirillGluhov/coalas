@@ -119,7 +119,9 @@ fun AmountBottomSheet(
         sheetState = sheetState
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth().padding(16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
         ) {
             Text(
                 stringResource(if (isReplenish) R.string.replenish_money_label else R.string.withdraw_money_label),
@@ -195,8 +197,7 @@ fun Content(
         itemsIndexed(state.currentState.loans) { index, loan ->
             LoanCard(
                 loan = loan,
-                onLoanClick = {},
-                onReplenishLoanButtonClick = {}
+                onLoanClick = {  },
             )
         }
 
@@ -308,50 +309,32 @@ fun AccountCard(
 fun LoanCard(
     loan: ShortLoan,
     onLoanClick: () -> Unit,
-    onReplenishLoanButtonClick: () -> Unit
 ) {
     Card(
         onClick = onLoanClick,
         modifier = Modifier
             .fillMaxWidth()
     ) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp, horizontal = 16.dp)
-        ) {
-            Column {
-                Text(
-                    text = "Тариф: ${loan.tariff.name}",
-                    color = MaterialTheme.colorScheme.primary
-                )
-                Text(
-                    text = "Тарифная ставка: ${loan.tariff.procent}%",
-                    color = MaterialTheme.colorScheme.primary
-                )
-                Text(
-                    text = "Сумма кредита: ${loan.size}",
-                    color = MaterialTheme.colorScheme.primary
-                )
-                Text(
-                    text = "Долг по кредиту: ${loan.debt}",
-                    color = MaterialTheme.colorScheme.primary
-                )
-                Text(
-                    text = "Процентная ставка: ${loan.procents}%",
-                    color = MaterialTheme.colorScheme.primary
-                )
-            }
-
-            Icon(
-                painter = painterResource(R.drawable.ic_replenish),
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier
-                    .size(32.dp)
-                    .clickable { onReplenishLoanButtonClick() }
+        Column {
+            Text(
+                text = "Тариф: ${loan.tariff.name}",
+                color = MaterialTheme.colorScheme.primary
+            )
+            Text(
+                text = "Тарифная ставка: ${loan.tariff.procent}%",
+                color = MaterialTheme.colorScheme.primary
+            )
+            Text(
+                text = "Сумма кредита: ${loan.size}",
+                color = MaterialTheme.colorScheme.primary
+            )
+            Text(
+                text = "Долг по кредиту: ${loan.debt}",
+                color = MaterialTheme.colorScheme.primary
+            )
+            Text(
+                text = "Процентная ставка: ${loan.procents}%",
+                color = MaterialTheme.colorScheme.primary
             )
         }
     }

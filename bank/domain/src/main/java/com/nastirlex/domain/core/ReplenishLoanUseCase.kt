@@ -4,12 +4,11 @@ import com.nastirlex.domain.common.SuspendedUseCase
 import com.nastirlex.domain.core.model.TransferParam
 import javax.inject.Inject
 
-interface TransferUseCase : SuspendedUseCase<TransferParam, Unit>
+interface ReplenishLoanUseCase : SuspendedUseCase<TransferParam, Unit>
 
-class TransferUseCaseImpl @Inject constructor(
+class ReplenishLoanUseCaseImpl @Inject constructor(
     private val coreDataSource: CoreDataSource
-) : TransferUseCase {
+) : ReplenishLoanUseCase {
     override suspend fun execute(param: TransferParam) =
-        coreDataSource.transfer(param.loanId, param.transferBody)
-
+        coreDataSource.replenishLoan(param.loanId, param.transferBody)
 }

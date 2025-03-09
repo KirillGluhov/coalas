@@ -14,4 +14,12 @@
     <string name="loan_size_label">Размер кредита</string>
 
     <string name="create_loan_button">Взять кредит</string>
+
+    <string name="loan_close_date_label">Дата закрытия кредита</string>
+
+    <string name="date_picker_ok">Выбрать</string>
+    <string name="date_picker_cancel">Отмена</string>
+
+    <string name="turn_off_auto_debt">Отключить автоплатеж</string>
+    <string name="turn_on_auto_debt">Включить автоплатеж</string>
 </resources>

@@ -1,7 +1,6 @@
 package com.nastirlex.bank.presentation.newAccounts
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,7 +9,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -40,26 +38,23 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshots.MutableSnapshot
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Popup
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.common.collect.ListMultimap
 import com.nastirlex.bank.R
 import com.nastirlex.bank.presentation.newAccounts.model.NewAccountsState
+import com.nastirlex.domain.core.model.Account
 import com.nastirlex.domain.core.model.Loan
 import com.nastirlex.domain.core.model.Tariff
 import java.text.SimpleDateFormat
@@ -73,7 +68,6 @@ fun NewAccountsScreen(
 ) {
     val screenState by viewModel.screenState.collectAsState()
     val sheetState = rememberModalBottomSheetState(true)
-
 
     Scaffold { contentPadding ->
         Content(
@@ -89,13 +83,14 @@ fun NewAccountsScreen(
                 onAccountIdClick = { accountId -> viewModel.onAccountIdSelected(accountId) },
                 onLoanSizeChanged = { newSize -> viewModel.onLoanSizeChanged(newSize) },
                 onCreateLoanButtonClick = { viewModel.createLoan() },
+                onBottomSheetChangeVisibility = { isVisible -> viewModel.onBottomSheetChangeVisibility(isVisible) }
             )
 
     }
 }
 
 @Composable
-fun Content(
+private fun Content(
     state: NewAccountsState,
     onTariffClick: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -155,19 +150,22 @@ fun CreateLoanBottomSheet(
     sheetState: SheetState,
     onAccountIdClick: (String) -> Unit,
     onLoanSizeChanged: (String) -> Unit,
-    onCreateLoanButtonClick: () -> Unit,
+    onCreateLoanButtonClick: (String) -> Unit,
+    onBottomSheetChangeVisibility: (Boolean) -> Unit
 ) {
     var accountIdExpanded by remember { mutableStateOf(false) }
     var showModal by remember { mutableStateOf(false) }
-    val datePickerState = rememberDatePickerState()
 
-    var selectedDate by remember { mutableStateOf<Long?>(null) }
-    val selectedDateDate = selectedDate?.let {
+    var selectedDateMillis by remember { mutableStateOf<Long?>(null) }
+    val selectedDate = selectedDateMillis?.let {
         convertMillisToDate(it)
     } ?: ""
+    val selectedZonedDateTime = selectedDateMillis?.let {
+        convertMillisToZonedDateTime(it)
+    }
 
     ModalBottomSheet(
-        onDismissRequest = { },
+        onDismissRequest = { onBottomSheetChangeVisibility(false) },
         sheetState = sheetState,
     ) {
         Column(
@@ -180,38 +178,13 @@ fun CreateLoanBottomSheet(
                 color = MaterialTheme.colorScheme.primary,
             )
             Spacer(Modifier.height(8.dp))
-            TextField(
-                value = state.selectedAccountId,
-                onValueChange = {},
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable { accountIdExpanded = true },
-                readOnly = true,
-                trailingIcon = {
-                    Box {
-                        IconButton(onClick = { accountIdExpanded = true }) {
-                            Icon(
-                                imageVector = Icons.Default.KeyboardArrowDown,
-                                contentDescription = null
-                            )
-                        }
 
-                        DropdownMenu(
-                            expanded = accountIdExpanded,
-                            onDismissRequest = { accountIdExpanded = false }
-                        ) {
-                            state.accounts.forEach {
-                                DropdownMenuItem(
-                                    text = { Text(text = "it.currency" + " " + it.id) },
-                                    onClick = {
-                                        onAccountIdClick(it.id)
-                                        accountIdExpanded = false
-                                    }
-                                )
-                            }
-                        }
-                    }
-                }
+            AccountIdDropDownMenu(
+                selectedAccountId = state.selectedAccountId,
+                accountIdExpanded = accountIdExpanded,
+                accounts = state.accounts,
+                changeAccountIdExpanded = { value -> accountIdExpanded = value},
+                onAccountIdClick = onAccountIdClick,
             )
 
             Spacer(Modifier.height(8.dp))
@@ -226,15 +199,15 @@ fun CreateLoanBottomSheet(
             Spacer(Modifier.height(8.dp))
 
             OutlinedTextField(
-                value = selectedDateDate,
+                value = selectedDate,
                 onValueChange = { },
-                label = { Text("DOB") },
+                label = { Text(stringResource(R.string.loan_close_date_label)) },
                 readOnly = true,
                 trailingIcon = {
                     IconButton(onClick = { showModal = !showModal }) {
                         Icon(
                             imageVector = Icons.Default.DateRange,
-                            contentDescription = "Select date"
+                            contentDescription = null,
                         )
                     }
                 },
@@ -245,13 +218,18 @@ fun CreateLoanBottomSheet(
 
             if (showModal) {
                 DatePickerModal(
-                    onDateSelected = { selectedDate = it },
+                    onDateSelected = { selectedDateMillis = it },
                     onDismiss = { showModal = false }
                 )
             }
             Spacer(Modifier.height(8.dp))
             Button(
-                onClick = onCreateLoanButtonClick,
+                onClick = {
+                    if (selectedZonedDateTime != null) {
+                        onBottomSheetChangeVisibility(false)
+                        onCreateLoanButtonClick(selectedZonedDateTime)
+                    }
+                },
                 modifier = Modifier
                     .fillMaxWidth(),
             ) {
@@ -277,12 +255,12 @@ fun DatePickerModal(
                 onDateSelected(datePickerState.selectedDateMillis)
                 onDismiss()
             }) {
-                Text("OK")
+                Text(stringResource(R.string.date_picker_ok))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Cancel")
+                Text(stringResource(R.string.date_picker_cancel))
             }
         }
     ) {
@@ -310,7 +288,58 @@ private fun Loan(loan: Loan) {
     }
 }
 
+@Composable
+fun AccountIdDropDownMenu(
+    selectedAccountId: String,
+    accountIdExpanded: Boolean,
+    accounts: List<Account>,
+    changeAccountIdExpanded: (Boolean) -> Unit,
+    onAccountIdClick: (String) -> Unit,
+) {
+    val selectedAccount = accounts.find { it.id == selectedAccountId }
+    val accountValue = selectedAccount?.let { "${selectedAccount.balance} RUB ${selectedAccount.status}" } ?: ""
+
+    TextField(
+        value = accountValue,
+        onValueChange = {},
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { changeAccountIdExpanded(true) },
+        readOnly = true,
+        trailingIcon = {
+            Box {
+                IconButton(onClick = { changeAccountIdExpanded(true) }) {
+                    Icon(
+                        imageVector = Icons.Default.KeyboardArrowDown,
+                        contentDescription = null
+                    )
+                }
+
+                DropdownMenu(
+                    expanded = accountIdExpanded,
+                    onDismissRequest = { changeAccountIdExpanded(false) }
+                ) {
+                    accounts.forEach {
+                        DropdownMenuItem(
+                            text = { Text(text = "${it.balance} RUB ${it.status}") },
+                            onClick = {
+                                onAccountIdClick(it.id)
+                                changeAccountIdExpanded(false)
+                            }
+                        )
+                    }
+                }
+            }
+        }
+    )
+}
+
 fun convertMillisToDate(millis: Long): String {
-    val formatter = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
+    val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    return formatter.format(Date(millis))
+}
+
+fun convertMillisToZonedDateTime(millis: Long): String {
+    val formatter = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.mmm'Z'", Locale.getDefault())
     return formatter.format(Date(millis))
 }

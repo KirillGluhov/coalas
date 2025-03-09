@@ -1,5 +1,6 @@
 package com.nastirlex.data.net.core
 
+import com.nastirlex.data.net.core.model.TransferBodyDto
 import com.nastirlex.data.net.core.model.toDomain
 import com.nastirlex.data.net.core.model.toDto
 import com.nastirlex.domain.core.CoreDataSource
@@ -13,6 +14,7 @@ import com.nastirlex.domain.core.model.Rating
 import com.nastirlex.domain.core.model.ShortLoan
 import com.nastirlex.domain.core.model.Tariff
 import com.nastirlex.domain.core.model.Transfer
+import com.nastirlex.domain.core.model.TransferParam
 import javax.inject.Inject
 
 class CoreDataSourceImpl @Inject constructor(private val coreApi: CoreApi) : CoreDataSource {
@@ -40,6 +42,9 @@ class CoreDataSourceImpl @Inject constructor(private val coreApi: CoreApi) : Cor
 
     override suspend fun getLoans(): List<ShortLoan> =
         coreApi.getLoans().map { it.toDomain() }
+
+    override suspend fun replenishLoan(loanId: String, transferBodyDto: Transfer) =
+        coreApi.replenishLoan(loanId = loanId, transferBody = transferBodyDto.toDto())
 
     override suspend fun createLoan(createLoan: CreateLoan) =
         coreApi.createLoan(createLoanBody = createLoan.toDto())
