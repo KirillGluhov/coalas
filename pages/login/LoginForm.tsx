@@ -1,6 +1,5 @@
 import { login } from "@/api/httpMethods"
 import { CustomButton } from "@/components/CustomButton"
-import { ErrorText } from "@/components/ErrorText"
 import { InputWithError } from "@/components/InputWithError"
 import { colors } from "@/const/Colors"
 import { formatEmail, formatPassword, formatPhone } from "@/helpers/utils"
@@ -60,8 +59,7 @@ export const LoginForm = () => {
 
     return <View style={styles.form}>
         <View style={styles.row}>
-            <InputWithError
-                style={[styles.inputStyle, isPasswordError ? styles.errorStyle : ""]} 
+            <InputWithError 
                 placeholder="* Пароль"
                 onChange={onChangePassword}
                 formater={formatPassword}
@@ -75,7 +73,6 @@ export const LoginForm = () => {
         </View>
         <View style={styles.row}>
             <InputWithError
-                style={[styles.inputStyle, isPhoneError ? styles.errorStyle : ""]} 
                 placeholder="Телефон"
                 onChange={onChangePhone}
                 formater={formatPhone}
@@ -88,7 +85,6 @@ export const LoginForm = () => {
             />
             <Text style={styles.text}>Или</Text>
             <InputWithError
-                style={[styles.inputStyle, isEmailError || isEmailError ? styles.errorStyle : ""]} 
                 placeholder="Email"
                 onChange={onChangeEmail}
                 formater={formatEmail}
@@ -136,8 +132,5 @@ const styles = StyleSheet.create({
         color: colors.dark.text,
         fontSize: 15,
         marginBottom: 19
-    },
-    errorStyle: {
-        borderColor: colors.dark.red
     }
 })

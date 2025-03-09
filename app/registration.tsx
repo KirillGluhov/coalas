@@ -1,6 +1,7 @@
+import { RegistrationPage } from "@/pages/registration/RegistrationPage";
 import { View, Text } from "react-native";
 
 export default function Registration()
 {
-    return <View><Text>Регистрация</Text></View>
+    return <RegistrationPage/>
 }
