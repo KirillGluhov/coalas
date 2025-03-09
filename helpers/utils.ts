@@ -49,3 +49,47 @@ export const formatPassword = (text: string, setError: React.Dispatch<React.SetS
     }
     return text;
 }
+
+export const formatSeries = (text: string, setError: React.Dispatch<React.SetStateAction<boolean>>) => {
+    const cleaned = text.replace(/\D/g, '').slice(0, 4);
+    if (cleaned.length < 4 && cleaned.length !== 0)
+    {
+        setError(true)
+    }
+    else 
+    {
+        setError(false);
+    }
+    const formatted = cleaned.replace(/(\d{2})(\d{2})?/, "$1 $2").trim(); 
+    return formatted
+}
+
+export const formatPassportNumber = (text: string, setError: React.Dispatch<React.SetStateAction<boolean>>) => {
+    const formatted = text.replace(/\D/g, '').slice(0, 6);
+
+    if (formatted.length < 6 && formatted.length !== 0)
+    {
+        setError(true)
+    }
+    else 
+    {
+        setError(false);
+    }
+    
+    return formatted
+}
+
+export const formatDepartmentCode = (text: string, setError: React.Dispatch<React.SetStateAction<boolean>>) => {
+    const cleaned= text.replace(/\D/g, '').slice(0, 6);
+    
+    if (cleaned.length < 6 && cleaned.length !== 0)
+    {
+        setError(true)
+    }
+    else 
+    {
+        setError(false);
+    }
+    const formatted = cleaned.replace(/(\d{3})(\d{3})/, "$1-$2");
+    return formatted
+}

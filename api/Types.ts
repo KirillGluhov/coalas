@@ -1,3 +1,5 @@
+import { Gender } from "@/pages/Types";
+
 export interface ErrorMessage
 {
     status: string,
@@ -49,4 +51,42 @@ export interface PositionRequestType
     id: string,
     name: string,
     description?: string | null
+}
+
+export interface RegisterEmployeeType
+{
+    name: string,
+    lastName: string,
+    secondName?: string | null,
+    gender?: Gender | null,
+    birthDate?: string | null,
+    positionId: string,
+    password: string,
+    phone?: string | null,
+    email?: string | null
+}
+
+export interface RegiaterRequestType
+{
+    accessToken: string,
+    refreshToken: string
+}
+
+export interface RegisterClientType
+{
+    name: string,
+    lastName: string,
+    secondName?: string | null,
+    gender?: Gender | null,
+    birthDate?: string | null,
+    password: string,
+    phone?: string | null,
+    email?: string | null,
+    passport: {
+        series: string,
+        number: string,
+        issueDate: string,
+        departmentCode: string,
+        departmentName: string
+    }
 }

@@ -79,6 +79,44 @@ createServer({
       ]
     })
 
+    this.post("/users/register/employee", (schema, request) => {
+      let loginCredentials = JSON.parse(request.requestBody)
+
+      if ('password' in loginCredentials && ('phone' in loginCredentials || 'email' in loginCredentials))
+      {
+        return {
+            accessToken: "piuy6478",
+            refreshToken: "5400treee",
+        }
+      }
+      else
+      {
+        return {
+          status: "error",
+        }
+      }
+    })
+
+    this.post("/users/register/client", (schema, request) => {
+      let loginCredentials = JSON.parse(request.requestBody)
+      let headers = request.requestHeaders;
+
+      if (
+        'password' in loginCredentials && ('phone' in loginCredentials || 'email' in loginCredentials) && 
+        "Authorization" in headers && headers["Authorization"].length > 7
+      )
+      {
+        return {
+        }
+      }
+      else
+      {
+        return {
+          status: "error",
+        }
+      }
+    })
+
   },
 })
 

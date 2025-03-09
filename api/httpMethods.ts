@@ -1,4 +1,4 @@
-import { EmptyType, ErrorMessage, LoginRequestType, LoginType, PositionRequestType, ProfileRequestType } from "./Types";
+import { EmptyType, ErrorMessage, LoginRequestType, LoginType, PositionRequestType, ProfileRequestType, RegiaterRequestType, RegisterClientType, RegisterEmployeeType } from "./Types";
 
 export const baseUrl = "";
 
@@ -53,5 +53,32 @@ export async function getPositions() {
         }
     })
     const result: PositionRequestType[] | ErrorMessage = await response.json()
+    return result
+}
+
+export async function registerEmployee(requestBody: RegisterEmployeeType) {
+    const response = await fetch(`${baseUrl}/users/register/employee`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+
+    })
+    const result: RegiaterRequestType | ErrorMessage = await response.json()
+    return result
+}
+
+export async function registerClient(requestBody: RegisterClientType, token: string) {
+    const response = await fetch(`${baseUrl}/users/register/client`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(requestBody)
+
+    })
+    const result: EmptyType | ErrorMessage = await response.json()
     return result
 }

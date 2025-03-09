@@ -1,39 +1,44 @@
 import { colors } from "@/const/Colors";
 import { SetStateAction, useState } from "react";
-import { TouchableOpacity, Text, Modal, FlatList, View, StyleSheet, Image } from "react-native";
+import { TouchableOpacity, View, Modal, FlatList, Text, Image, StyleSheet } from "react-native";
+import DateTimePicker, { DateType, getDefaultStyles } from "react-native-ui-datepicker";
 
-export type SelectItem = {
-  label: string;
-  value: string;
-}
-
-interface SelectType
+interface DatePickerType
 {
-  items: SelectItem[],
   title: string,
-  value: any | null,
-  change: React.Dispatch<SetStateAction<any | null>>;
+  value: DateType,
+  change: React.Dispatch<SetStateAction<DateType>>;
   placeholder?: string;
+  endDate?: DateType;
+  startDate?: DateType;
 }
 
-export const Select: React.FC<SelectType> = ({items, title, value, change, placeholder}) => {
+export const DatePicker: React.FC<DatePickerType> = ({title, value, change, placeholder, startDate, endDate}) => {
    const [isModalVisible, setModalVisible] = useState<boolean>(false);
-  const [displayValue, setDisplayValue] = useState<string | null>(null);
+  const [displayValue, setDisplayValue] = useState<DateType | null>(null);
+  const defaultStyles = getDefaultStyles();
 
   const toggleModal = () => setModalVisible(!isModalVisible)
 
-  const handleSelect = (value: any, label: string) => {
-    change(value);
-    setDisplayValue(label);
+  const handleSelect = (date: DateType) => {
+    
+
+    if (typeof date === 'object' && date && 'toLocaleDateString' in date)
+    {
+        const formatedDate = date?.toLocaleDateString();
+        setDisplayValue(formatedDate);
+        change(date?.toISOString());
+    }
+    else
+    {
+        setDisplayValue(date);
+        change(date)
+    }
+    
+    
 
     toggleModal();
   };
-
-  const renderItem = ({ item }: { item: SelectItem }) => (
-    <TouchableOpacity style={styles.option} onPress={() => handleSelect(item.value, item.label)}>
-      <Text style={styles.optionText}>{item.label}</Text>
-    </TouchableOpacity>
-  );
     
     return (
         <View style={styles.container}>
@@ -47,11 +52,14 @@ export const Select: React.FC<SelectType> = ({items, title, value, change, place
     
           <Modal visible={isModalVisible} onRequestClose={toggleModal} style={styles.modal}>
             <View style={styles.modalContent}>
-              <FlatList
-                data={items}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.value}
-                style={styles.optionsList}
+              <DateTimePicker
+                mode="single"
+                date={value}
+                onChange={({ date }) => handleSelect(date)}
+                styles={defaultStyles}
+                style={styles.calendar}
+                startDate={startDate}
+                endDate={endDate}
               />
             </View>
           </Modal>
@@ -104,14 +112,8 @@ const styles = StyleSheet.create({
       padding: 16,
       alignItems: "center",
     },
-    optionsList: {
-      gap: 8
-    },
-    option: {
-      
-    },
-    optionText: {
-      color: colors.dark.text,
-      fontSize: 27
-    },
+    calendar: {
+        backgroundColor: colors.dark.text,
+        color: colors.dark.text
+    }
   });
