@@ -1,0 +1,20 @@
+:root{
+    font-family: 'GothamPro', Inter, Arial, sans-serif;
+    font-weight: 400;
+}
+
+body {
+    margin: 0
+}
+
+@font-face {
+    font-family: 'GothamPro';
+    font-weight: 400;
+    src: url('./assets/fonts/GothamPro-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'GothamPro';
+    font-weight: bold;
+    src: url('./assets/fonts/GothamPro-Bold.ttf');
+}

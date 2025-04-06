@@ -1,0 +1,40 @@
+@use '../../variables.scss' as *;
+@use "sass:map";
+
+.title
+{
+    padding: 16px;
+    align-self: flex-start;
+    border-radius: 16px;
+    position: absolute;
+    display: flex;
+    left: 16px;
+        
+    &.light
+    {
+        background-color: map.get($light-colors, main)
+    }
+
+    &.dark
+    {
+        background-color: map.get($dark-colors, main);
+    }
+
+    .text
+    {
+        font-family: "GothamPro";
+        font-weight: bold;
+        font-size: 27px;
+        margin: 0;
+
+        .lightText
+        {
+            color: #000000;
+        }
+
+        .darkText
+        {
+            color: #ffffff;
+        }
+    }
+}

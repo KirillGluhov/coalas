@@ -1,0 +1,33 @@
+@use '../variables.scss' as *;
+@use "sass:map";
+
+.card
+{
+    display: flex;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    max-width: 810px;
+    min-width: 300px;
+    width: 75%;
+    margin-right: 16px;
+    margin-left: 16px;
+    flex-direction: column;
+    position: relative;
+}
+
+.innerCard
+{
+    padding: 24px;
+    border-radius: 16px;
+    margin-top: 43px;
+
+    &.light
+    {
+        background-color: map.get($light-colors, main);
+    }
+
+    &.dark
+    {
+        background-color: map.get($dark-colors, main)
+    }
+}
