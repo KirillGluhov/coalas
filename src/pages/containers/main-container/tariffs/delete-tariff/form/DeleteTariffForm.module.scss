@@ -1,0 +1,19 @@
+.title
+{
+    margin-bottom: 16px;
+    font-family: 'GothamPro';
+    font-size: 24px;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+}
+
+.row
+{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+}

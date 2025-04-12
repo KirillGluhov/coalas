@@ -12,18 +12,50 @@
     padding-right: 16px;
     align-items: center;
     box-sizing: border-box;
-}
 
-.logo {
-    display: flex;
-    gap: 8px;
-    flex-direction: row;
-    align-items: center
-}
+    .logo {
+        display: flex;
+        gap: 8px;
+        flex-direction: row;
+        align-items: center;
 
+        .logoText {
+            font-size: 20px;
+        }
 
-.logoText {
-    font-size: 20px;
+        .darkText
+        {
+            color: #ffffff;
+        }
+
+        .lightText
+        {
+            color: #000000;
+        }
+    }
+
+    .rightPart
+    {
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+        align-items: center;
+
+        .profile
+        {
+            display: flex;
+            flex-direction: row;
+            gap: 8px;
+            align-items: center;
+
+            .name
+            {
+                margin: 0;
+                font-size: 20;
+            }
+        }
+        
+    }
 }
 
 .dark
@@ -31,17 +63,8 @@
     background-color: map.get($dark-colors, main);
 }
 
-.darkText
-{
-    color: #ffffff;
-}
-
 .light
 {
     background-color: map.get($light-colors, main);
 }
 
-.lightText
-{
-    color: #000000;
-}

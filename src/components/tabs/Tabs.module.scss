@@ -1,0 +1,27 @@
+@use '../variables.scss' as *;
+@use "sass:map";
+
+.tabs
+{
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-end-end-radius: 16px;
+    border-end-start-radius: 16px;
+    padding: 8px;
+    gap: 4px;
+    align-items: stretch;
+    box-sizing: border-box;
+}
+
+.dark
+{
+    background-color: map.get($dark-colors, accent);
+}
+
+.light
+{
+    background-color: map.get($light-colors, accent);
+}

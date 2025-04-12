@@ -13,6 +13,13 @@
     margin-left: 16px;
     flex-direction: column;
     position: relative;
+
+    .additionalElement
+    {
+        position: absolute;
+        right: 0;
+        top: -5px;
+    }
 }
 
 .innerCard
@@ -20,6 +27,7 @@
     padding: 24px;
     border-radius: 16px;
     margin-top: 43px;
+    height: calc(100vh - 270px);
 
     &.light
     {

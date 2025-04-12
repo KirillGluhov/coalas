@@ -1,0 +1,100 @@
+@use '../../../../../components/variables.scss' as *;
+@use "sass:map";
+
+.form
+{
+    gap: 8px;
+    display: flex;
+    flex-direction: column;
+
+    .row
+    {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        gap: 8px;
+        align-items: center;
+
+        .or
+        {
+            margin-bottom: 18px;
+        }
+
+        
+    }
+}
+
+.inputWithError
+{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    .input
+    {
+        padding: 12px;
+        border: 1px solid #3F3F44;
+        background-color: transparent;
+        box-sizing: border-box;
+        border-radius: 8px;
+        font-family: 'GothamPro';
+        font-weight: 400;
+        font-size: 15px;
+
+        &.light
+        {
+            color: #000000;
+        }
+
+        &.dark
+        {
+            color: #ffffff;
+        }
+
+    }
+
+    .enter
+    {
+        display: flex;
+        width: fit-content;
+
+        &.maxWidth
+        {
+            width: 100%;
+        }
+
+        &:hover
+        {
+            cursor: pointer;
+        }
+
+        &.input
+        {
+            border: none;
+            
+            &.light
+            {
+                background-color: map.get($light-colors, accent);
+            }
+
+            &.dark
+            {
+                background-color: map.get($dark-colors, accent);
+            }
+        }
+    }
+
+    .error
+    {
+        color: map.get($light-colors, danger);
+        margin-top: 4px;
+        height: 18px;
+    }
+}
+
+
+
+
+
+
+

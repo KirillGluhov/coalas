@@ -1,0 +1,89 @@
+@use '../variables.scss' as *;
+@use "sass:map";
+@use "sass:color";
+
+$light-accent: map.get($light-colors, accent);
+$dark-accent: map.get($dark-colors, accent);
+
+$light-danger: map.get($light-colors, danger);
+
+.button
+{
+    font-size: 15px;
+    font-family: 'GothamPro';
+    font-weight: 400;
+    padding: 12px;
+    background-color: #ffffff29;
+    border: none;
+    border-radius: 8px;
+    width: fit-content;
+    cursor: pointer;
+
+    &.create
+    {
+        &.dark
+        {
+            background-color: $dark-accent;
+
+            &:hover
+            {
+                background-color: color.adjust($color: $dark-accent, $lightness: -10%);
+            }
+
+            &:active
+            {
+                background-color: color.adjust($color: $dark-accent, $lightness: -20%);
+            }
+        }
+
+        &.light
+        {
+            background-color: $light-accent;
+
+            &:hover
+            {
+                background-color: color.adjust($color: $light-accent, $lightness: -10%);
+            }
+
+            &:active
+            {
+                background-color: color.adjust($color: $light-accent, $lightness: -20%);
+            }
+        }
+    }
+
+    &.delete
+    {
+        background-color: $light-danger;
+
+        &:hover
+        {
+            background-color: color.adjust($color: $light-danger, $lightness: -10%);
+        }
+
+        &:active
+        {
+            background-color: color.adjust($color: $light-danger, $lightness: -20%);
+        }
+    }
+
+    &:hover
+    {
+        background-color: #ffffff33;
+    }
+
+    &:active
+    {
+        background-color: #ffffff3D;
+    }
+}
+
+.dark
+{
+    color: #ffffff;
+}
+
+.light
+{
+    color: #000000;
+}

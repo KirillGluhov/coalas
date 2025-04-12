@@ -3,8 +3,8 @@ import { Header } from './components/header/Header'
 import { MainPage } from './pages/MainPage'
 import { ThemeProvider } from './providers/theme/ThemeProvider'
 import { pages } from './consts'
-import { Login } from './pages/containers/login/Login'
-import { SimpleContainer } from './pages/containers/SimpleContainer'
+import { SimpleContainer } from './pages/containers/simple-container/SimpleContainer'
+import { MainContainer } from './pages/containers/main-container/MainContainer'
 
 function App() {
 
@@ -15,6 +15,7 @@ function App() {
         <Routes>
           <Route path={"/"} element={<MainPage/>}/>
           <Route path={pages.login.link} element={<SimpleContainer/>}/>
+          <Route path={pages.tariffs.link} element={<MainContainer/>}/>
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

@@ -1,0 +1,39 @@
+@use '../../../../components/variables.scss' as *;
+@use "sass:map";
+
+.tariffs
+{
+    display: flex;
+    justify-content: center;
+}
+
+.innerPart
+{
+    display: flex;
+    border-radius: 16px;
+    flex-direction: column;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.tariffList
+{
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+}
+
+.dark
+{
+    background-color: map.get($dark-colors, back);
+}
+
+.light
+{
+    background-color: map.get($light-colors, back);
+}
