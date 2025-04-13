@@ -1,0 +1,23 @@
+@use '../variables.scss' as *;
+@use "sass:map";
+
+.card
+{
+    height: 150px;
+    border-radius: 16px;
+    box-sizing: border-box;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &.light
+    {
+        background-color: map.get($light-colors, main);
+    }
+    
+    &.dark
+    {
+        background-color: map.get($dark-colors, main);
+    }
+}

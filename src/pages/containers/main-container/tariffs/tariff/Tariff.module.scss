@@ -1,36 +1,15 @@
 @use '../../../../../components/variables.scss' as *;
 @use "sass:map";
 
-.tariff
+.row
 {
-    height: 150px;
-    border-radius: 16px;
-    box-sizing: border-box;
-    padding: 16px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
 
-    &.light
+    .procent
     {
-        background-color: map.get($light-colors, main);
-    }
-    
-    &.dark
-    {
-        background-color: map.get($dark-colors, main);
-    }
-
-    .row
-    {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-
-        .procent
-        {
-            font-size: 20px;
-            color: #92949C;
-        }
+        font-size: 20px;
+        color: #92949C;
     }
 }

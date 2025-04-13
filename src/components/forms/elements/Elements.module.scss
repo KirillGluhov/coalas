@@ -1,0 +1,54 @@
+@use '../../variables.scss' as *;
+@use "sass:map";
+@use "sass:color";
+
+.selectWrapper
+{
+    position: relative;
+
+    .arrow
+    {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        cursor: pointer;
+    }
+
+    select
+    {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+
+        &.light
+        {
+            background-color: map.get($light-colors, main);
+        }
+
+        &.dark
+        {
+            background-color: map.get($dark-colors, main);
+        }
+
+        option
+        {
+            &.light
+            {
+                background-color: map.get($light-colors, main);
+            }
+        
+            &.dark
+            {
+                background-color: map.get($dark-colors, main);
+            }
+        } 
+    }
+}
+
+.placeholder
+{
+    margin-bottom: 4px;
+    color: #92949C;
+}

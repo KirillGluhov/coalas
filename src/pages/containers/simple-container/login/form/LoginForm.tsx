@@ -96,7 +96,6 @@ export const LoginForm = () => {
                             <span className={styles.error}>{fieldState.error?.message}</span>
                         </div>
                     )}
-
                 />
             </div>
             <div className={styles.row}>

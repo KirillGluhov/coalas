@@ -16,6 +16,8 @@ function App() {
           <Route path={"/"} element={<MainPage/>}/>
           <Route path={pages.login.link} element={<SimpleContainer/>}/>
           <Route path={pages.tariffs.link} element={<MainContainer/>}/>
+          <Route path={pages.employees.link} element={<MainContainer/>}/>
+          <Route path={pages.clients.link} element={<MainContainer/>}/>
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

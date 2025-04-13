@@ -17,6 +17,16 @@ export const endpoints = {
     user: {
         api: "userApi",
         id: "/users/:id",
-        position: "/positions/:id"
+        search: {
+            employees: "/users/list?role=EMPLOYEE",
+            clients: "/users/list?role=CLIENT"
+        },
+        create: {
+            employee: "/register",
+            client: '/register'
+        },
+        block: "/users/:id/block",
+        position: "/positions/:id",
+        positions: "/positions"
     }
 }

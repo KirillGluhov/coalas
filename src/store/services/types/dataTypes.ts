@@ -1,6 +1,11 @@
 export type UserStatusType = "EMPLOYEE" | "CLIENT"
 export type GenderType = "MALE" | "FEMALE"
 
+export const genders = {
+    male: "MALE",
+    female: "FEMALE"
+}
+
 export interface RefreshTokenType
 {
     refreshToken?: string,
@@ -63,4 +68,18 @@ export interface PositionType
     id: string,
     name: string | undefined,
     description: string | undefined
+}
+
+export interface EmployeeRegisterForm
+{
+    role: UserStatusType,
+    name: string,
+    lastName: string,
+    secondName?: string,
+    password: string,
+    gender: GenderType,
+    birthDate: string,
+    email?: string,
+    phone?: string,
+    positionId: string
 }

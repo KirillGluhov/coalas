@@ -5,7 +5,7 @@ import styles from './Header.module.scss';
 import Koala from "../../assets/logos/koala.svg";
 import Profile from '../../assets/logos/profile.svg';
 import { authentificationAPI } from "../../store/services/authentificationService";
-import { getDisplayName } from "./utils";
+import { getDisplayName } from "../../utils";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { skipToken } from "@reduxjs/toolkit/query";
 import { useNavigate } from "react-router";

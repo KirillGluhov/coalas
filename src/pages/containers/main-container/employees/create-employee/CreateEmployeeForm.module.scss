@@ -1,0 +1,82 @@
+@use '../../../../../components/variables.scss' as *;
+@use "sass:map";
+
+.row
+{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 8px;
+    align-items: center;
+}
+
+.placeholder
+{
+    margin-bottom: 4px;
+    color: #92949C;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    z-index: 1;
+}
+  
+.dateWrapper {
+    position: relative;
+
+    .calendar
+    {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        cursor: pointer;
+    }
+}
+
+.selectWrapper
+{
+    position: relative;
+
+    .arrow
+    {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        cursor: pointer;
+    }
+
+    select
+    {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+
+        &.light
+        {
+            background-color: map.get($light-colors, main);
+        }
+
+        &.dark
+        {
+            background-color: map.get($dark-colors, main);
+        }
+
+        option
+        {
+            &.light
+            {
+                background-color: map.get($light-colors, main);
+            }
+        
+            &.dark
+            {
+                background-color: map.get($dark-colors, main);
+            }
+        } 
+    }
+}
+

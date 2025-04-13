@@ -1,0 +1,126 @@
+@use '../../variables.scss' as *;
+@use "sass:map";
+@use "sass:color";
+
+$light-accent: map.get($light-colors, accent);
+$dark-accent: map.get($dark-colors, accent);
+
+.form
+{
+    display: flex;
+    flex-direction: column;
+
+    .right
+    {
+        align-items: flex-end; 
+    }
+
+    .title
+    {
+        margin-bottom: 16px;
+    }
+
+    h2
+    {
+        font-family: 'GothamPro';
+        font-size: 24px;
+        font-weight: 400;
+    }
+
+    .row
+    {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        gap: 8px;
+        align-items: center;
+    }
+}
+
+.inputWithError
+{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    .input
+    {
+        padding: 12px;
+        border: 1px solid #3F3F44;
+        background-color: transparent;
+        box-sizing: border-box;
+        border-radius: 8px;
+        font-family: 'GothamPro';
+        font-weight: 400;
+        font-size: 15px;
+
+        &.light
+        {
+            color: #000000;
+        }
+
+        &.dark
+        {
+            color: #ffffff;
+        }
+
+    }
+
+    .enter
+    {
+        display: flex;
+        width: fit-content;
+
+        &.maxWidth
+        {
+            width: 100%;
+        }
+
+        &:hover
+        {
+            cursor: pointer;
+        }
+
+        &.input
+        {
+            border: none;
+            
+            &.light
+            {
+                background-color: $light-accent;
+
+                &:hover
+                {
+                    background-color: color.adjust($color: $light-accent, $lightness: -10%);
+                }
+
+                &:active
+                {
+                    background-color: color.adjust($color: $light-accent, $lightness: -20%);
+                }
+            }
+
+            &.dark
+            {
+                background-color: $dark-accent;
+
+                &:hover
+                {
+                    background-color: color.adjust($color: $dark-accent, $lightness: -10%);
+                }
+
+                &:active
+                {
+                    background-color: color.adjust($color: $dark-accent, $lightness: -20%);
+                }
+            }
+        }
+    }
+
+    .error
+    {
+        color: map.get($light-colors, danger);
+        margin-top: 4px;
+        height: 18px;
+    }
+}
